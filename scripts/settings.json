@@ -1,0 +1,46 @@
+{
+    "name":  "MyApp",
+    "memoryLimit":  "6G",
+    "installApps":  "",
+    "installTestApps":  "",
+    "previousApps":  "",
+    "appFolders":  "app",
+    "testFolders":  "",
+    "installTestRunner":  true,
+    "installTestFramework":  false,
+    "installTestLibraries":  false,
+    "installPerformanceToolkit":  false,
+    "doNotSignApps":  true,
+    "enableCodeCop":  false,
+    "enableAppSourceCop":  false,
+    "enablePerTenantExtensionCop":  true,
+    "enableUICop":  true,
+    "bcContainerHelperVersion":  "",
+    "additionalCountries":  "",
+    "vaultNameForLocal":  "BuildVariables",
+    "versions":  [
+                     {
+                         "version":  "ci",
+                         "artifact":  "////latest",
+                         "cacheImage":  true,
+                         "CreateRuntimePackages":  true
+                     },
+                     {
+                         "version":  "current",
+                         "artifact":  "///us/Current",
+                         "CreateRuntimePackages":  true
+                     },
+                     {
+                         "version":  "cloud",
+                         "artifact":  "///us/Current"
+                     },
+                     {
+                         "version":  "nextmajor",
+                         "artifact":  "///us/NextMajor/{INSIDERSASTOKEN}"
+                     },
+                     {
+                         "version":  "nextminor",
+                         "artifact":  "///us/NextMinor/{INSIDERSASTOKEN}"
+                     }
+                 ]
+}
