@@ -10,6 +10,25 @@
     [int] $appRevision = 0
 )
 
+function ValidateVersion {
+    param (
+        $id, $version
+    )
+
+    $extensions = Get-BcEnvironmentInstalledExtensions -bcAuthContext $authContext -environment $proEnv
+
+    $app = $extensions | Where-Object { $_.id -eq $id}
+
+    Write-Host $app
+
+    $appVersion = "$($app.versionMajor).$($app.versionMinor).$($app.versionBuild).$($app.versionRevision)"
+    if($app -and ($appVersion -eq $version)){
+        Write-Host "Ya se encuentra instalada la ultima versión de este artefacto"
+    } else {
+        RunPipeline
+    }
+}
+
 function RunPipeline {
     do {
         Start-Sleep -Seconds 10
@@ -103,11 +122,7 @@ function SearchAppJson {
         $appJson = Get-Content $appJsonFile | ConvertFrom-Json
         # Write-Host "JSON: $appJson"
         Write-Host "Current version"
-        if(!($currentApp.Version -eq $appJson.version)){
-            RunPipeline
-        }else{
-            Write-Host "Ya posee la ultima version"
-        }
+        ValidateVersion -id $appJson.id -version $appJson.version
     }
 }
 
@@ -141,15 +156,7 @@ $authContext = New-BcAuthContext `
 # $environment = Get-BcEnvironments -bcAuthContext $authContext -environment 'DEV-ALT'
 
 $environmentName = $ENV:BCEnvironment
+$proEnv = $ENV:ProEnv
 Write-Host "Env: $environmentName"
 
-Start-Sleep -Seconds 10
-Write-Host "Searching test artifact"
-$currentApp = Get-BcPublishedApps -bcAuthContext $authContext -environment $environmentName | Where-Object { $_.Id -eq "c0f2cb46-b96d-4e7d-a45d-c8ec60d7f19f" }
-
-if($currentApp){
-    $currentApp | Out-Host
-    SearchAppJson
-} else {
-    RunPipeline
-}
+SearchAppJson

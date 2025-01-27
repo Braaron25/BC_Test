@@ -43,6 +43,7 @@ jobs:
       TenantId: '$(TenantId)'
       ClientSecret: '$(ClientSecret)'
       BCEnvironment: '$(BCEnvironment)'
+      ProEnv: '$(ProEnv)'
     inputs:
       targetType: filePath
       filePath: 'scripts\DevOps-Pipeline.ps1'
