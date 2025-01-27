@@ -1,7 +1,7 @@
 {
   "id": "c0f2cb46-b96d-4e7d-a45d-c8ec60d7f19f",
   "name": "Test_Pro",
-  "publisher": "Default Publisher",
+  "publisher": "bromero",
   "version": "1.0.0.0",
   "brief": "",
   "description": "",
@@ -16,8 +16,8 @@
   "application": "25.0.0.0",
   "idRanges": [
     {
-      "from": 50100,
-      "to": 50149
+      "from": 50900,
+      "to": 50999
     }
   ],
   "resourceExposurePolicy": {
