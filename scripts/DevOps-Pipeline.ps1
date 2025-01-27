@@ -41,13 +41,15 @@ $authContext = New-BcAuthContext `
 $environmentName = $ENV:BCEnvironment
 Write-Host "Env: $environmentName"
 
-do {
-    Start-Sleep -Seconds 10
-    $currentApp = Get-BcPublishedApps -bcAuthContext $authContext -environment $environmentName | Where-Object { $_.Name -eq "Test_Pro" }
-} while (!($currentApp))
-$currentApp | Out-Host
+Write-Host "Search current artifact"
+$currentApp = Get-BcPublishedApps -bcAuthContext $authContext -environment $environmentName | Where-Object { $_.Name -eq "Test_Pro" }
 
-$path = Join-Path $PSScriptRoot ".."
+if($currentApp){
+    SearchAppJson
+}
+
+function SearchAppJson {
+    $path = Join-Path $PSScriptRoot ".."
 
 Get-ChildItem -Path $path | Where-Object { $_.PSIsContainer -and $_.Name -notlike ".*" } | Get-ChildItem -Recurse -Filter "app.json" | ForEach-Object {
     $appJsonFile = $_.FullName
@@ -60,6 +62,8 @@ Get-ChildItem -Path $path | Where-Object { $_.PSIsContainer -and $_.Name -notlik
         Write-Host "Ya posee la ultima version"
     }
 }
+}
+
 
 function RunPipeline {
     do {
