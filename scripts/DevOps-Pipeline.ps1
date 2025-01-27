@@ -41,14 +41,12 @@ $authContext = New-BcAuthContext `
 $environmentName = $ENV:BCEnvironment
 Write-Host "Env: $environmentName"
 
-do {
-    Start-Sleep -Seconds 10
-    Write-Host "Searching test artifact"
-    $currentApp = Get-BcPublishedApps -bcAuthContext $authContext -environment $environmentName | Where-Object { $_.Id -eq "c0f2cb46-b96d-4e7d-a45d-c8ec60d7f19f" }
-} while (!($currentApp))
-$currentApp | Out-Host
+Start-Sleep -Seconds 10
+Write-Host "Searching test artifact"
+$currentApp = Get-BcPublishedApps -bcAuthContext $authContext -environment $environmentName | Where-Object { $_.Id -eq "c0f2cb46-b96d-4e7d-a45d-c8ec60d7f19f" }
 
 if($currentApp){
+    $currentApp | Out-Host
     SearchAppJson
 } else {
     RunPipeline
