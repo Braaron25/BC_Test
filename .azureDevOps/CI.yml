@@ -73,17 +73,17 @@ jobs:
       arguments: '-appVersion "$(appVersion).$(appBuild).$(appRevision)"'
       failOnStderr: true
 
-  - task: PowerShell@2
-    displayName: 'Publis to Production'
-    env:
-      ClientId: '$(ClientId)'
-      TenantId: '$(TenantId)'
-      ClientSecret: '$(ClientSecret)'
-      ProEnv: '$(ProEnv)'
-    inputs:
-      targetType: filePath
-      filePath: 'scripts\Publish-to-Production.ps1'
-      failOnStderr: true
+  # - task: PowerShell@2
+  #   displayName: 'Publis to Production'
+  #   env:
+  #     ClientId: '$(ClientId)'
+  #     TenantId: '$(TenantId)'
+  #     ClientSecret: '$(ClientSecret)'
+  #     ProEnv: '$(ProEnv)'
+  #   inputs:
+  #     targetType: filePath
+  #     filePath: 'scripts\Publish-to-Production.ps1'
+  #     failOnStderr: true
 
   - task: PowerShell@2
     displayName: 'Cleanup'
