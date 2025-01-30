@@ -47,6 +47,7 @@ jobs:
 
   - task: PowerShell@2
     displayName: 'Publis to Production'
+    dependsOn: 'Run Pipeline'
     env:
       ClientId: '$(ClientId)'
       TenantId: '$(TenantId)'
