@@ -90,7 +90,6 @@ function RunPipeline {
         -AppSourceCopMandatoryAffixes $appSourceCopMandatoryAffixes `
         -AppSourceCopSupportedCountries $appSourceCopSupportedCountries `
         -additionalCountries $additionalCountries `
-        -doNotPublishApps $true `
         -buildArtifactFolder $buildArtifactFolder
         # -appBuild $appBuild -appRevision $appRevision
     
