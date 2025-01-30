@@ -19,13 +19,16 @@ function ValidateVersion {
 
     $app = $extensions | Where-Object { ($_.id -eq $id) -and $_.isInstalled}
 
-    Write-Host $app
+    Write-Host "Installed version: $app"
 
-    $appVersion = "$($app.versionMajor).$($app.versionMinor).$($app.versionBuild).$($app.versionRevision)"
-    if($app -and ($appVersion -eq $version) -and $app.isInstalled){
-        Write-Host "Ya se encuentra instalada la ultima versión de este artefacto"
-    } else {
-        Write-Host "##vso[task.setvariable variable=BuildArtifact]$true"
+    if($app){
+        $appVersion = "$($app.versionMajor).$($app.versionMinor).$($app.versionBuild).$($app.versionRevision)"
+        if($app -and ($appVersion -eq $version)){
+            Write-Host "Ya se encuentra instalada la ultima versión de este artefacto"
+        } else {
+            RunPipeline
+        }
+    }else{
         RunPipeline
     }
 }
@@ -97,6 +100,8 @@ function RunPipeline {
     if ($environment -eq 'AzureDevOps') {
         Write-Host "##vso[task.setvariable variable=TestResults]$allTestResults"
     }
+
+    Write-Host "##vso[task.setvariable variable=BuildArtifact]$true"
 }
 
 function SearchAppJson {
