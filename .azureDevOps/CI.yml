@@ -47,7 +47,7 @@ jobs:
 
   - task: PowerShell@2
     displayName: 'Publis to Production'
-    dependsOn: 'Run Pipeline'
+    condition: eq(variables['BuildArtifact'], true)
     env:
       ClientId: '$(ClientId)'
       TenantId: '$(TenantId)'
@@ -60,7 +60,7 @@ jobs:
 
   - task: PowerShell@2
     displayName: 'Cleanup'
-    condition: eq(variables['BuildArtifact'], true)
+    condition: always()
     inputs:
       targetType: filePath
       filePath: 'scripts\Cleanup.ps1'
