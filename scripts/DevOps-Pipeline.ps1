@@ -22,7 +22,7 @@ function ValidateVersion {
     Write-Host $app
 
     $appVersion = "$($app.versionMajor).$($app.versionMinor).$($app.versionBuild).$($app.versionRevision)"
-    if($app -and ($appVersion -eq $version)){
+    if($app -and ($appVersion -eq $version) -and $app.isInstalled){
         Write-Host "Ya se encuentra instalada la ultima versión de este artefacto"
     } else {
         Write-Host "##vso[task.setvariable variable=BuildArtifact]$true"
@@ -90,6 +90,7 @@ function RunPipeline {
         -AppSourceCopMandatoryAffixes $appSourceCopMandatoryAffixes `
         -AppSourceCopSupportedCountries $appSourceCopSupportedCountries `
         -additionalCountries $additionalCountries `
+        -doNotPublishApps $true `
         -buildArtifactFolder $buildArtifactFolder
         # -appBuild $appBuild -appRevision $appRevision
     
