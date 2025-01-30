@@ -17,7 +17,7 @@ function ValidateVersion {
 
     $extensions = Get-BcEnvironmentInstalledExtensions -bcAuthContext $authContext -environment $proEnv
 
-    $app = $extensions | Where-Object { $_.id -eq $id}
+    $app = $extensions | Where-Object { ($_.id -eq $id) -and $_.isInstalled}
 
     Write-Host $app
 
