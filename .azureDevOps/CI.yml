@@ -60,7 +60,7 @@ jobs:
 
   - task: PowerShell@2
     displayName: 'Cleanup'
-    condition: always()
+    condition: eq(variables['BuildArtifact'], true)
     inputs:
       targetType: filePath
       filePath: 'scripts\Cleanup.ps1'

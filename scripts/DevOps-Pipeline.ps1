@@ -25,6 +25,7 @@ function ValidateVersion {
     if($app -and ($appVersion -eq $version)){
         Write-Host "Ya se encuentra instalada la ultima versión de este artefacto"
     } else {
+        Write-Host "##vso[task.setvariable variable=BuildArtifact]$true"
         RunPipeline
     }
 }
