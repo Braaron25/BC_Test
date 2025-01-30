@@ -19,10 +19,12 @@ function ValidateVersion {
 
     $app = $extensions | Where-Object { ($_.id -eq $id) -and $_.isInstalled}
 
-    Write-Host "Installed version: $app"
-
     if($app){
         $appVersion = "$($app.versionMajor).$($app.versionMinor).$($app.versionBuild).$($app.versionRevision)"
+        
+        Write-Host "Installed version: $appVersion"
+        Write-Host "To deploy version: $versions"
+        
         if($app -and ($appVersion -eq $version)){
             Write-Host "Ya se encuentra instalada la ultima versión de este artefacto"
         } else {
@@ -58,8 +60,6 @@ function RunPipeline {
     if (Test-Path $testResultsFiles) {
         Remove-Item $testResultsFiles -Force
     }
-    
-    Write-Host "param=$params"
     
     Run-AlPipeline `
         -pipelinename $pipelineName `
@@ -110,14 +110,10 @@ function SearchAppJson {
     Get-ChildItem -Path $path | Where-Object { $_.PSIsContainer -and $_.Name -notlike ".*" } | Get-ChildItem -Recurse -Filter "app.json" | ForEach-Object {
         $appJsonFile = $_.FullName
         $appJson = Get-Content $appJsonFile | ConvertFrom-Json
-        # Write-Host "JSON: $appJson"
-        Write-Host "Current version"
         ValidateVersion -id $appJson.id -version $appJson.version
     }
 }
 
-
-Write-Host "info=$ENV:ClientId"
 
 if ($environment -eq "AzureDevOps") {
     Write-Host "azure: $ENV:BUILD_ARTIFACTSTAGINGDIRECTORY"
@@ -128,7 +124,6 @@ if ($environment -eq "AzureDevOps") {
 # Install-Module BcContainerHelper -Force
 
 $baseFolder = (Get-Item (Join-Path $PSScriptRoot "..")).FullName
-Write-Host "Base folder: $baseFolder"
 . (Join-Path $PSScriptRoot "Read-Settings.ps1") -environment $environment -version $version
 # . (Join-Path $PSScriptRoot "Install-BcContainerHelper.ps1") -bcContainerHelperVersion $bcContainerHelperVersion -genericImageName $genericImageName
 
@@ -145,6 +140,5 @@ $authContext = New-BcAuthContext `
 
 $environmentName = $ENV:BCEnvironment
 $proEnv = $ENV:ProEnv
-Write-Host "Env: $environmentName"
 
 SearchAppJson
