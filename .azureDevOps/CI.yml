@@ -18,27 +18,8 @@ jobs:
 
   steps:
   - task: PowerShell@2
-    displayName: 'Update app dependencies'
-    env: 
-      BCEnvironment: '$(BCEnvironment)'
-    inputs:
-      targetType: filePath
-      filePath: 'scripts\GetDependenciesVersion.ps1'
-      failOnStderr: true
-
-  - task: PowerShell@2
-    displayName: 'Set BuildNumber'
-    inputs:
-      targetType: inline
-      script: 'Write-Host "##vso[build.updatebuildnumber]$(appVersion).$(appBuild).$(appRevision)"'
-
-  - task: PowerShell@2
     displayName: 'Run Pipeline'
     env:
-      InsiderSasToken: '$(InsiderSasToken)'
-      LicenseFile: '$(LicenseFile)'
-      CodeSignCertPfxFile: '$(CodeSignCertPfxFile)'
-      CodeSignCertPfxPassword: '$(CodeSignCertPfxPassword)'
       ClientId: '$(ClientId)'
       TenantId: '$(TenantId)'
       ClientSecret: '$(ClientSecret)'
@@ -65,26 +46,16 @@ jobs:
       ArtifactName: output
 
   - task: PowerShell@2
-    displayName: 'Update config dependencies'
-    env: 
-      BCEnvironment: '$(BCEnvironment)'
+    displayName: 'Publis to Production'
+    env:
+      ClientId: '$(ClientId)'
+      TenantId: '$(TenantId)'
+      ClientSecret: '$(ClientSecret)'
+      ProEnv: '$(ProEnv)'
     inputs:
       targetType: filePath
-      filePath: 'scripts\UpdateDependencieVersion.ps1'
-      arguments: '-appVersion "$(appVersion).$(appBuild).$(appRevision)"'
+      filePath: 'scripts\Publish-to-Production.ps1'
       failOnStderr: true
-
-  # - task: PowerShell@2
-  #   displayName: 'Publis to Production'
-  #   env:
-  #     ClientId: '$(ClientId)'
-  #     TenantId: '$(TenantId)'
-  #     ClientSecret: '$(ClientSecret)'
-  #     ProEnv: '$(ProEnv)'
-  #   inputs:
-  #     targetType: filePath
-  #     filePath: 'scripts\Publish-to-Production.ps1'
-  #     failOnStderr: true
 
   - task: PowerShell@2
     displayName: 'Cleanup'

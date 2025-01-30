@@ -48,23 +48,6 @@ function RunPipeline {
         throw "No artifacts available"
     }
     
-    # $params = @{}
-    # $insiderSasToken = "$ENV:insiderSasToken"
-    # $licenseFile = "$ENV:licenseFile"
-    # $codeSigncertPfxFile = "$ENV:CodeSignCertPfxFile"
-    # if (!$doNotSignApps -and $codeSigncertPfxFile) {
-    #     if ("$ENV:CodeSignCertPfxPassword" -ne "") {
-    #         $codeSignCertPfxPassword = try { "$ENV:CodeSignCertPfxPassword" | ConvertTo-SecureString } catch { ConvertTo-SecureString -String "$ENV:CodeSignCertPfxPassword" -AsPlainText -Force }
-    #         $params = @{
-    #             "codeSignCertPfxFile"     = $codeSignCertPfxFile
-    #             "codeSignCertPfxPassword" = $codeSignCertPfxPassword
-    #         }
-    #     }
-    #     else {
-    #         $codeSignCertPfxPassword = $null
-    #     }
-    # }
-    
     $allTestResults = "testresults*.xml"
     $testResultsFile = Join-Path $baseFolder "TestResults.xml"
     $testResultsFiles = Join-Path $baseFolder $allTestResults
@@ -152,8 +135,6 @@ $authContext = New-BcAuthContext `
     -tenantID $tenantId `
     -scopes "https://api.businesscentral.dynamics.com/.default" `
     -includeDeviceLogin
-
-# $environment = Get-BcEnvironments -bcAuthContext $authContext -environment 'DEV-ALT'
 
 $environmentName = $ENV:BCEnvironment
 $proEnv = $ENV:ProEnv
