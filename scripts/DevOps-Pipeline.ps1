@@ -94,7 +94,6 @@ function RunPipeline {
         -AppSourceCopSupportedCountries $appSourceCopSupportedCountries `
         -additionalCountries $additionalCountries `
         -buildArtifactFolder $buildArtifactFolder `
-        -doNotPublishApps
         # -appBuild $appBuild -appRevision $appRevision
     
     if ($environment -eq 'AzureDevOps') {
