@@ -23,7 +23,7 @@ function ValidateVersion {
         $appVersion = "$($app.versionMajor).$($app.versionMinor).$($app.versionBuild).$($app.versionRevision)"
         
         Write-Host "Installed version: $appVersion"
-        Write-Host "To deploy version: $versions"
+        Write-Host "To deploy version: $version"
         
         if($app -and ($appVersion -eq $version)){
             Write-Host "Ya se encuentra instalada la ultima versión de este artefacto"
