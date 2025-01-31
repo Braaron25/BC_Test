@@ -10,6 +10,6 @@ pageextension 50997 CustomerListExt extends "Customer List"
 {
     trigger OnOpenPage();
     begin
-        Message('App published: Esto es una prueba, version 2');
+        Message('App published: Prueba en hotel ibis');
     end;
 }
