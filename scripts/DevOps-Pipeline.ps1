@@ -26,10 +26,11 @@ function ValidateVersion {
         Write-Host "To deploy version: $version"
         
         if($app -and ($appVersion -eq $version)){
-            Write-Host "Ya se encuentra instalada la ultima versión de este artefacto"
+            Write-Host "##vso[task.setvariable variable=BuildArtifact]$false"
         } else {
-            RunPipeline
+            Write-Host "##vso[task.setvariable variable=BuildArtifact]$true"
         }
+        RunPipeline
     }else{
         RunPipeline
     }
@@ -100,7 +101,6 @@ function RunPipeline {
         Write-Host "##vso[task.setvariable variable=TestResults]$allTestResults"
     }
 
-    Write-Host "##vso[task.setvariable variable=BuildArtifact]$true"
 }
 
 function SearchAppJson {

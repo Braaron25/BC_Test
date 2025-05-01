@@ -4,4 +4,5 @@ Publish-PerTenantExtensionApps -useNewLine `
  -ClientSecret $ENV:ClientSecret `
  -tenantId $ENV:TenantId `
  -environment $ENV:ProEnv `
+ -schemaSyncMode 'Force' `
  -appFiles @(Get-Item ".output/*.app" | % { $_.FullName })
