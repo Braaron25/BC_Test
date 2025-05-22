@@ -11,12 +11,6 @@
   "url": "",
   "logo": "",
   "dependencies": [
-    {
-      "id": "7c1ed34c-027e-4527-a945-afa92578dc1d",
-      "name": "Localización Base",
-      "publisher": "AltioraCorp",
-      "version": "1.0.1.16"
-    }
   ],
   "screenshots": [],
   "platform": "1.0.0.0",
