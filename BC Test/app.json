@@ -2,7 +2,7 @@
   "id": "86e1cc29-f5ab-46a4-86dc-e1972efd1d76",
   "name": "BC Test",
   "publisher": "Altiora",
-  "version": "1.0.0.0",
+  "version": "1.1.0.0",
   "brief": "",
   "description": "",
   "privacyStatement": "",
@@ -10,8 +10,7 @@
   "help": "",
   "url": "",
   "logo": "",
-  "dependencies": [
-  ],
+  "dependencies": [],
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "22.0.0.0",
