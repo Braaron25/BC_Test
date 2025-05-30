@@ -37,7 +37,7 @@ env:
 jobs:
   IncrementVersionNumber:
     needs: [ ]
-    runs-on: [ windows-latest ]
+    runs-on: [self-hosted]
     permissions:
       actions: read
       contents: write

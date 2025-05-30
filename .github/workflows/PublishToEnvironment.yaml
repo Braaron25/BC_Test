@@ -27,7 +27,7 @@ env:
 jobs:
   Initialization:
     needs: [ ]
-    runs-on: [ windows-latest ]
+    runs-on: [self-hosted]
     outputs:
       environmentsMatrixJson: ${{ steps.DetermineDeploymentEnvironments.outputs.EnvironmentsMatrixJson }}
       environmentCount: ${{ steps.DetermineDeploymentEnvironments.outputs.EnvironmentCount }}
@@ -188,7 +188,7 @@ jobs:
   PostProcess:
     needs: [ Initialization, Deploy ]
     if: always()
-    runs-on: [ windows-latest ]
+    runs-on: [self-hosted]
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2

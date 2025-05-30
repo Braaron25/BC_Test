@@ -69,7 +69,7 @@ env:
 jobs:
   CreateRelease:
     needs: [ ]
-    runs-on: [ windows-latest ]
+    runs-on: [self-hosted]
     outputs:
       artifacts: ${{ steps.analyzeartifacts.outputs.artifacts }}
       releaseId: ${{ steps.createrelease.outputs.releaseId }}
@@ -243,7 +243,7 @@ jobs:
 
   UploadArtifacts:
     needs: [ CreateRelease ]
-    runs-on: [ windows-latest ]
+    runs-on: [self-hosted]
     strategy:
       matrix: ${{ fromJson(needs.CreateRelease.outputs.artifacts) }}
       fail-fast: true
@@ -324,7 +324,7 @@ jobs:
   CreateReleaseBranch:
     needs: [ CreateRelease, UploadArtifacts ]
     if: ${{ github.event.inputs.createReleaseBranch=='true' }}
-    runs-on: [ windows-latest ]
+    runs-on: [self-hosted]
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -347,7 +347,7 @@ jobs:
   UpdateVersionNumber:
     needs: [ CreateRelease, UploadArtifacts ]
     if: ${{ github.event.inputs.updateVersionNumber!='' }}
-    runs-on: [ windows-latest ]
+    runs-on: [self-hosted]
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -378,7 +378,7 @@ jobs:
   PostProcess:
     needs: [ CreateRelease, UploadArtifacts, CreateReleaseBranch, UpdateVersionNumber ]
     if: always()
-    runs-on: [ windows-latest ]
+    runs-on: [self-hosted]
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
