@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - main  # o la rama que quieras
+      - master  # o la rama que quieras
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -14,7 +14,7 @@ steps:
       git clone --mirror https://$(System.AccessToken)@dev.azure.com/altioracorp-businesscentral/_git/BC_PruebaConcepto source-repo
       cd source-repo
 
-      git remote add github https://Braaron25:<GITHUB_PAT>@github.com/Frexofa/BC_Test.git
+      git remote add github https://$(GITHUB_PAT)@github.com/Frexofa/BC_Test.git
 
       git push --mirror github
     env:
